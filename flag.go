@@ -55,13 +55,25 @@ func boolFromEnv(name string, value bool) bool {
 // Bool defines a bool flag with specified name, default value, and usage string.
 // The return value is the address of a bool variable that stores the value of the flag.
 func Bool(name string, value bool, usage string) *bool {
-	return f.Bool(name, boolFromEnv(name, value), usage)
+	return BoolWithoutEnv(name, boolFromEnv(name, value), usage)
+}
+
+// BoolWithoutEnv defines a bool flag with specified name, default value, and usage string.
+// The return value is the address of a bool variable that stores the value of the flag.
+func BoolWithoutEnv(name string, value bool, usage string) *bool {
+	return f.Bool(name, value, usage)
 }
 
 // BoolVar defines a bool flag with specified name, default value, and usage string.
 // The argument p points to a bool variable in which to store the value of the flag.
 func BoolVar(p *bool, name string, value bool, usage string) {
-	f.BoolVar(p, name, boolFromEnv(name, value), usage)
+	BoolVarWithoutEnv(p, name, boolFromEnv(name, value), usage)
+}
+
+// BoolVarWithoutEnv defines a bool flag with specified name, default value, and usage string.
+// The argument p points to a bool variable in which to store the value of the flag.
+func BoolVarWithoutEnv(p *bool, name string, value bool, usage string) {
+	f.BoolVar(p, name, value, usage)
 }
 
 // durationFromEnv returns parsed duration from environment variable. On error returning default value
@@ -81,14 +93,28 @@ func durationFromEnv(name string, value time.Duration) time.Duration {
 // The return value is the address of a time.Duration variable that stores the value of the flag.
 // The flag accepts a value acceptable to time.ParseDuration.
 func Duration(name string, value time.Duration, usage string) *time.Duration {
-	return f.Duration(name, durationFromEnv(name, value), usage)
+	return DurationWithoutEnv(name, durationFromEnv(name, value), usage)
+}
+
+// DurationWithoutEnv defines a time.Duration flag with specified name, default value, and usage string.
+// The return value is the address of a time.Duration variable that stores the value of the flag.
+// The flag accepts a value acceptable to time.ParseDuration.
+func DurationWithoutEnv(name string, value time.Duration, usage string) *time.Duration {
+	return f.Duration(name, value, usage)
 }
 
 // DurationVar defines a time.Duration flag with specified name, default value, and usage string.
 // The argument p points to a time.Duration variable in which to store the value of the flag.
 // The flag accepts a value acceptable to time.ParseDuration.
 func DurationVar(p *time.Duration, name string, value time.Duration, usage string) {
-	f.DurationVar(p, name, durationFromEnv(name, value), usage)
+	DurationVarWithoutEnv(p, name, durationFromEnv(name, value), usage)
+}
+
+// DurationVarWithoutEnv defines a time.Duration flag with specified name, default value, and usage string.
+// The argument p points to a time.Duration variable in which to store the value of the flag.
+// The flag accepts a value acceptable to time.ParseDuration.
+func DurationVarWithoutEnv(p *time.Duration, name string, value time.Duration, usage string) {
+	f.DurationVar(p, name, value, usage)
 }
 
 // float64FromEnv returns parsed float64 from environment variable. On error returning default value
@@ -107,13 +133,25 @@ func float64FromEnv(name string, value float64) float64 {
 // Float64 defines a float64 flag with specified name, default value, and usage string.
 // The return value is the address of a float64 variable that stores the value of the flag.
 func Float64(name string, value float64, usage string) *float64 {
-	return f.Float64(name, float64FromEnv(name, value), usage)
+	return Float64WithoutEnv(name, float64FromEnv(name, value), usage)
+}
+
+// Float64WithoutEnv defines a float64 flag with specified name, default value, and usage string.
+// The return value is the address of a float64 variable that stores the value of the flag.
+func Float64WithoutEnv(name string, value float64, usage string) *float64 {
+	return f.Float64(name, value, usage)
 }
 
 // Float64Var defines a float64 flag with specified name, default value, and usage string.
 // The argument p points to a float64 variable in which to store the value of the flag.
 func Float64Var(p *float64, name string, value float64, usage string) {
-	f.Float64Var(p, name, float64FromEnv(name, value), usage)
+	Float64VarWithoutEnv(p, name, float64FromEnv(name, value), usage)
+}
+
+// Float64VarWithoutEnv defines a float64 flag with specified name, default value, and usage string.
+// The argument p points to a float64 variable in which to store the value of the flag.
+func Float64VarWithoutEnv(p *float64, name string, value float64, usage string) {
+	f.Float64Var(p, name, value, usage)
 }
 
 // Func defines a flag with the specified name and usage string. Each time the flag is seen,
@@ -139,25 +177,49 @@ func int64FromEnv(name string, value int64) int64 {
 // Int defines an int flag with specified name, default value, and usage string.
 // The return value is the address of an int variable that stores the value of the flag.
 func Int(name string, value int, usage string) *int {
-	return f.Int(name, int(int64FromEnv(name, int64(value))), usage)
+	return IntWithoutEnv(name, int(int64FromEnv(name, int64(value))), usage)
+}
+
+// IntWithoutEnv defines an int flag with specified name, default value, and usage string.
+// The return value is the address of an int variable that stores the value of the flag.
+func IntWithoutEnv(name string, value int, usage string) *int {
+	return f.Int(name, value, usage)
 }
 
 // Int64 defines an int64 flag with specified name, default value, and usage string.
 // The return value is the address of an int64 variable that stores the value of the flag.
 func Int64(name string, value int64, usage string) *int64 {
-	return f.Int64(name, int64FromEnv(name, value), usage)
+	return Int64WithoutEnv(name, int64FromEnv(name, value), usage)
+}
+
+// Int64WithoutEnv defines an int64 flag with specified name, default value, and usage string.
+// The return value is the address of an int64 variable that stores the value of the flag.
+func Int64WithoutEnv(name string, value int64, usage string) *int64 {
+	return f.Int64(name, value, usage)
 }
 
 // Int64Var defines an int64 flag with specified name, default value, and usage string.
 // The argument p points to an int64 variable in which to store the value of the flag.
 func Int64Var(p *int64, name string, value int64, usage string) {
-	f.Int64Var(p, name, int64FromEnv(name, value), usage)
+	Int64VarWithoutEnv(p, name, int64FromEnv(name, value), usage)
+}
+
+// Int64VarWithoutEnv defines an int64 flag with specified name, default value, and usage string.
+// The argument p points to an int64 variable in which to store the value of the flag.
+func Int64VarWithoutEnv(p *int64, name string, value int64, usage string) {
+	f.Int64Var(p, name, value, usage)
+}
+
+// IntVarWithoutEnv defines an int flag with specified name, default value, and usage string.
+// The argument p points to an int variable in which to store the value of the flag.
+func IntVarWithoutEnv(p *int, name string, value int, usage string) {
+	f.IntVar(p, name, int(int64FromEnv(name, int64(value))), usage)
 }
 
 // IntVar defines an int flag with specified name, default value, and usage string.
 // The argument p points to an int variable in which to store the value of the flag.
 func IntVar(p *int, name string, value int, usage string) {
-	f.IntVar(p, name, int(int64FromEnv(name, int64(value))), usage)
+	IntVarWithoutEnv(p, name, value, usage)
 }
 
 // NArg is the number of arguments remaining after flags have been processed.
@@ -227,13 +289,25 @@ func stringFromEnv(name string, value string) string {
 // String defines a string flag with specified name, default value, and usage string.
 //The return value is the address of a string variable that stores the value of the flag.
 func String(name string, value string, usage string) *string {
+	return StringWithoutEnv(name, stringFromEnv(name, value), usage)
+}
+
+// StringWithoutEnv defines a string flag with specified name, default value, and usage string.
+//The return value is the address of a string variable that stores the value of the flag.
+func StringWithoutEnv(name string, value string, usage string) *string {
 	return f.String(name, stringFromEnv(name, value), usage)
 }
 
 // StringVar defines a string flag with specified name, default value, and usage string.
 // The argument p points to a string variable in which to store the value of the flag.
 func StringVar(p *string, name string, value string, usage string) {
-	f.StringVar(p, name, stringFromEnv(name, value), usage)
+	StringVarWithoutEnv(p, name, stringFromEnv(name, value), usage)
+}
+
+// StringVarWithoutEnv defines a string flag with specified name, default value, and usage string.
+// The argument p points to a string variable in which to store the value of the flag.
+func StringVarWithoutEnv(p *string, name string, value string, usage string) {
+	f.StringVar(p, name, value, usage)
 }
 
 // uint64FromEnv returns parsed int64 from environment variable. On error returning default value
@@ -252,25 +326,49 @@ func uint64FromEnv(name string, value uint64) uint64 {
 // Uint defines a uint flag with specified name, default value, and usage string.
 // The return value is the address of a uint variable that stores the value of the flag.
 func Uint(name string, value uint, usage string) *uint {
-	return f.Uint(name, uint(uint64FromEnv(name, uint64(value))), usage)
+	return UintWithoutEnv(name, uint(uint64FromEnv(name, uint64(value))), usage)
+}
+
+// UintWithoutEnv defines a uint flag with specified name, default value, and usage string.
+// The return value is the address of a uint variable that stores the value of the flag.
+func UintWithoutEnv(name string, value uint, usage string) *uint {
+	return f.Uint(name, value, usage)
 }
 
 // Uint64 defines a uint64 flag with specified name, default value, and usage string.
 // The return value is the address of a uint64 variable that stores the value of the flag.
 func Uint64(name string, value uint64, usage string) *uint64 {
+	return Uint64WithoutEnv(name, value, usage)
+}
+
+// Uint64WithoutEnv defines a uint64 flag with specified name, default value, and usage string.
+// The return value is the address of a uint64 variable that stores the value of the flag.
+func Uint64WithoutEnv(name string, value uint64, usage string) *uint64 {
 	return f.Uint64(name, uint64FromEnv(name, value), usage)
 }
 
 // Uint64Var defines a uint64 flag with specified name, default value, and usage string.
-//The argument p points to a uint64 variable in which to store the value of the flag.
+// The argument p points to a uint64 variable in which to store the value of the flag.
 func Uint64Var(p *uint64, name string, value uint64, usage string) {
-	f.Uint64Var(p, name, uint64FromEnv(name, value), usage)
+	Uint64VarWithoutEnv(p, name, uint64FromEnv(name, value), usage)
+}
+
+// Uint64VarWithoutEnv defines a uint64 flag with specified name, default value, and usage string.
+// The argument p points to a uint64 variable in which to store the value of the flag.
+func Uint64VarWithoutEnv(p *uint64, name string, value uint64, usage string) {
+	f.Uint64Var(p, name, value, usage)
 }
 
 // UintVar defines a uint flag with specified name, default value, and usage string.
 // The argument p points to a uint variable in which to store the value of the flag.
 func UintVar(p *uint, name string, value uint, usage string) {
-	f.Uint(name, uint(uint64FromEnv(name, uint64(value))), usage)
+	UintWithoutEnv(name, uint(uint64FromEnv(name, uint64(value))), usage)
+}
+
+// UintVarWithoutEnv defines a uint flag with specified name, default value, and usage string.
+// The argument p points to a uint variable in which to store the value of the flag.
+func UintVarWithoutEnv(p *uint, name string, value uint, usage string) {
+	f.Uint(name, value, usage)
 }
 
 // UnquoteUsage extracts a back-quoted name from the usage string for a flag and returns it and the un-quoted usage.
