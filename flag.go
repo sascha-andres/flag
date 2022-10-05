@@ -26,6 +26,13 @@ func Usage() {
 	f.Usage()
 }
 
+// Arg returns the i'th command-line argument. Arg(0) is the first remaining argument
+// after flags have been processed. Arg returns an empty string if the
+// requested element does not exist.
+func Arg(i int) string {
+	return f.Arg(i)
+}
+
 // SetEnvPrefix sets the prefix for environmental default values
 // Must be called before using any flag definition functions (or to separate values,
 // then it should be grouped)
@@ -287,13 +294,13 @@ func stringFromEnv(name string, value string) string {
 }
 
 // String defines a string flag with specified name, default value, and usage string.
-//The return value is the address of a string variable that stores the value of the flag.
+// The return value is the address of a string variable that stores the value of the flag.
 func String(name string, value string, usage string) *string {
 	return StringWithoutEnv(name, stringFromEnv(name, value), usage)
 }
 
 // StringWithoutEnv defines a string flag with specified name, default value, and usage string.
-//The return value is the address of a string variable that stores the value of the flag.
+// The return value is the address of a string variable that stores the value of the flag.
 func StringWithoutEnv(name string, value string, usage string) *string {
 	return f.String(name, stringFromEnv(name, value), usage)
 }
