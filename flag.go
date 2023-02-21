@@ -249,9 +249,9 @@ func NFlag() int {
 // It differs from stdlib flag package insofar that verbs (flags not starting with -) before the first flag will be stripped
 // and provided for retrieval using GetVerbs
 func Parse() {
-	for i := range os.Args[1:] {
-		if !strings.HasPrefix(os.Args[i], "-") {
-			verbs = append(verbs, os.Args[i])
+	for _, v := range os.Args[1:] {
+		if !strings.HasPrefix(v, "-") {
+			verbs = append(verbs, v)
 		} else {
 			break
 		}
