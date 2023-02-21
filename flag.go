@@ -11,6 +11,7 @@ import (
 
 var (
 	envPrefix string
+	verbs     []string
 )
 
 // Usage prints a usage message documenting all defined command-line flags
@@ -168,6 +169,11 @@ func Func(name, usage string, fn func(string) error) {
 	f.Func(name, usage, fn)
 }
 
+// GetVerbs returns all found verbs
+func GetVerbs() []string {
+	return verbs
+}
+
 // int64FromEnv returns parsed int64 from environment variable. On error returning default value
 func int64FromEnv(name string, value int64) int64 {
 	val, found := os.LookupEnv(envNameForFlagName(name))
@@ -239,9 +245,22 @@ func NFlag() int {
 	return f.NFlag()
 }
 
-// Parse parses the command-line flags from os.Args[1:]. Must be called after all flags are defined and before flags are accessed by the program.
+// Parse parses the command-line flags from os.Args. Must be called after all flags are defined and before flags are accessed by the program.
+// It differs from stdlib flag package insofar that verbs (flags not starting with -) before the first flag will be stripped
+// and provided for retrieval using GetVerbs
 func Parse() {
-	f.Parse()
+	for i := range os.Args[1:] {
+		if !strings.HasPrefix(os.Args[i], "-") {
+			verbs = append(verbs, os.Args[i])
+		} else {
+			break
+		}
+	}
+	if 1+len(verbs) > len(os.Args) {
+		return
+	}
+	// Ignore errors; CommandLine is set for ExitOnError.
+	f.CommandLine.Parse(os.Args[1+len(verbs):])
 }
 
 // Parsed reports whether the command-line flags have been parsed.
