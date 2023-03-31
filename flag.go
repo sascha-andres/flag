@@ -235,6 +235,34 @@ func IntVar(p *int, name string, value int, usage string) {
 	IntVarWithoutEnv(p, name, value, usage)
 }
 
+// -- list value
+type listValue []string
+
+func (lv *listValue) String() string {
+	return strings.Join(*lv, ",")
+}
+
+func (lv *listValue) Set(s string) error {
+	values := strings.Split(s, ",")
+	*lv = values
+	return nil
+}
+
+func (lv *listValue) Get() any { return lv.String() }
+
+func newListValue(val string, p *listValue) *listValue {
+	*p = val
+	return (*listValue)(p)
+}
+
+func ListVar(p *[]string, name string, value []string, usage string) {
+
+}
+
+func ListVarWithoutEnv(p *[]string, name string, value []string, usage string) {
+
+}
+
 // NArg is the number of arguments remaining after flags have been processed.
 func NArg() int {
 	return f.NArg()
