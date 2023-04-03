@@ -249,18 +249,23 @@ func NFlag() int {
 // It differs from stdlib flag package insofar that verbs (flags not starting with -) before the first flag will be stripped
 // and provided for retrieval using GetVerbs
 func Parse() {
-	for _, v := range os.Args[1:] {
+	previousIsFlag := false
+	for _, v := range os.Args[0:] {
 		if !strings.HasPrefix(v, "-") {
-			verbs = append(verbs, v)
+			if !previousIsFlag {
+				verbs = append(verbs, v)
+			}
+			previousIsFlag = false
 		} else {
-			break
+			previousIsFlag = true
 		}
 	}
 	if 1+len(verbs) > len(os.Args) {
 		return
 	}
+
 	// Ignore errors; CommandLine is set for ExitOnError.
-	f.CommandLine.Parse(os.Args[1+len(verbs):])
+	_ = f.CommandLine.Parse(os.Args[1+len(verbs):])
 }
 
 // Parsed reports whether the command-line flags have been parsed.
