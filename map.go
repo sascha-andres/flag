@@ -14,8 +14,7 @@ func GetMapForEnvironmentVariable(name string) map[string]string {
 		if strings.HasPrefix(environmentVariable, name) {
 			parts := strings.SplitN(environmentVariable, "=", 2)
 			if len(parts) == 2 {
-				parts[0] = strings.TrimPrefix(parts[0], name)
-				parts[0] = strings.TrimPrefix(parts[0], "_")
+				parts[0] = strings.TrimPrefix(parts[0], name+"_")
 				parts[0] = strings.ToLower(parts[0])
 				result[parts[0]] = parts[1]
 			}
