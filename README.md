@@ -1,3 +1,5 @@
+!! moved to github.com/sascha-andres/reuse/flag
+
 # flag
 
 is an opinionated replacement for the flag package. It aims to be a drop in replacement for 80% of the use cases
